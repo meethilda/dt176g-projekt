@@ -5,7 +5,9 @@ const cleanCss = require('gulp-clean-css');
 const concatCSS = require('gulp-concat-css');
 const browserSync = require('browser-sync').create();
 const sass = require('gulp-sass');
-const babel = require('gulp-babel');    
+const babel = require('gulp-babel');
+require("babel-core/register");
+require("babel-polyfill");   
 
 // Files
 const files = {

@@ -1,0 +1,375 @@
+// Import files
+@import "_variables";
+
+// HTML
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 40px;
+}
+
+// Everything
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Libre Franklin";
+}
+
+// Body
+body {
+  display: flex;
+  min-height: 120vh;
+  flex-flow: column;
+  background: $darkGreen;
+}
+
+// Headers
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-transform: uppercase;
+}
+
+// Links
+a {
+  text-decoration: none;
+}
+
+// Header
+#main-header {
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  &.change {
+    background: $baseGrey;
+  }
+  #name {
+    padding: 5px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: $mintGreen;
+    span {
+      font-weight: normal;
+    }
+  }
+
+  // Menu
+  #check {
+    display: none;
+  }
+  .menu-toggle {
+    padding: 5px;
+    cursor: pointer;
+    margin-left: auto;
+    span {
+      width: 45px;
+      background: $mustard;
+      color: $mustard;
+      padding: 3px;
+      margin: 2px;
+      display: block;
+      &:nth-child(2) {
+        background: none;
+        padding: 0;
+        text-transform: uppercase;
+        font-size: 0.6em;
+        text-align: center;
+        letter-spacing: 0.3em;
+      }
+    }
+  }
+
+  #check:checked ~ .menu-list {
+    display: block;
+  }
+
+  .menu-list {
+    display: none;
+    min-width: 100%;
+    ul {
+      list-style: none;
+      display: flex;
+      width: 100%;
+      li {
+        display: inline;
+        flex-grow: 1;
+        flex-basis: 0;
+        a {
+          display: inline-block;
+          padding: 10px;
+          width: 100%;
+          text-align: center;
+          font-size: 0.8em;
+          text-transform: uppercase;
+          color: $darkGreen;
+          text-decoration: none;
+          &:hover {
+            background: darken($mintGreen, 10%);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Front
+.front {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $darkGreen;
+  background-image: linear-gradient(to bottom, transparent 50%, $mintGreen 50%), url(/images/pattern.png);
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -100px;
+    width: 100%;
+    height: 100px;
+    clip-path: polygon(0 0, 100% 100%, 100% 0);
+    background: $mintGreen;
+  }
+  .display {
+    width: 80%;
+    height: 50%;
+    display: flex;
+    //flex-flow: column;
+    //justify-content: center;
+    text-transform: uppercase;
+    font-size: 4em;
+
+    position: relative;
+    flex-flow: row wrap;
+    img {
+      height: 100%;
+      margin-left: auto;
+    }
+
+    p {
+      color: $mustard;
+      font-size: 1em;
+    }
+    h2 {
+      color: $darkGreen;
+    }
+    h3 {
+      color: $mintGreen;
+      line-height: 1em;
+    }
+    .title {
+      background: $mustard;
+      height: 40px;
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      width: 100%;
+      p {
+        color: $mintGreen;
+        font-size: 0.3em;
+        padding: 0 10px;
+      }
+    }
+  }
+}
+
+// Wrapper
+.wrapper {
+  flex: 1;
+  display: flex;
+  flex-flow: row wrap;
+  .sidebar {
+    background: $darkGreen;
+    padding: 60px 10px;
+    width: 20%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    .profile-img {
+      display: flex;
+      width: 15vw;
+      height: 15vw;
+      border-radius: 50%;
+      border: 5px solid $mustard;
+      overflow: hidden;
+      background: #fff;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    #profile-name {
+      margin: 20px 10px;
+      font-weight: bold;
+      font-size: 3em;
+      text-align: center;
+      color: $mintGreen;
+      span {
+        font-weight: normal;
+      }
+    }
+    #profile-desc {
+      padding: 10px;
+      text-align: center;
+      color: lighten($darkGreen, 20%);
+    }
+    #profile-email a {
+      color: $mustard;
+    }
+    #profile-socials {
+      width: 100%;
+      margin: 10px;
+      padding: 15px 20px;
+      list-style: none;
+      text-align: center;
+      li {
+        display: inline-block;
+        &::before {
+          font-size: 1.5em;
+          font-family: "Font Awesome 5 Brands";
+          margin: 0 5px 0 10px;
+          color: lighten($darkGreen, 20%);
+          vertical-align: -15%;
+        }
+        a {
+          color: $mintGreen;
+          font-size: 0.8em;
+        }
+      }
+      #fb {
+        &::before {
+          content: "\f082";
+        }
+      }
+      #ig {
+        &::before {
+          content: "\f16d";
+        }
+      }
+      #ldi {
+        &::before {
+          content: "\f08c";
+        }
+      }
+    }
+  }
+  main {
+    width: 80%;
+    .sections {
+      padding: 20px;
+      border-bottom: 5px solid $mintGreen;
+      &:first-child {
+        margin-top: 40px;
+        background: $darkGreen;
+      }
+      .items {
+        padding: 20px;
+        p {
+          span {
+            color: $mintGreen;
+          }
+        }
+      }
+    }
+  }
+}
+
+#timeline-div {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  &::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    background: $mustard;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+  }
+  .container {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      right: -17px;
+      background: #fff;
+      border: 4px solid $mintGreen;
+      top: 15px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .content {
+      padding: 20px 30px;
+      background: white;
+      position: relative;
+      border-radius: 5px;
+      > * {
+        padding: 3px;
+      }
+      i {
+        color: $mintGreen;
+        margin-right: 5px;
+      }
+    }
+  }
+  .left {
+    left: 0;
+    &::before {
+      content: "";
+      height: 0;
+      position: absolute;
+      top: 22px;
+      right: 30px;
+      width: 0;
+      z-index: 1;
+      border: medium solid #00f;
+      border-width: 10px 0 10px 10px;
+      border-color: transparent transparent transparent white;
+    }
+  }
+  .right {
+    left: 50%;
+    &::before {
+      @extend .left::before;
+      left: 30px;
+      border-width: 10px 10px 10px 0;
+      border-color: transparent white transparent transparent;
+    }
+    &::after {
+      left: -16px;
+    }
+  }
+}
+
+// Footer
+footer {
+  background: $mintGreen;
+  color: $darkGreen;
+  text-align: center;
+  padding: 10px;
+}
+
+// Media queries
+@media all and (max-width: 600px) {
+  .wrapper {
+    .sidebar {
+      width: 100%;
+    }
+    main {
+      width: 100%;
+    }
+  }
+}
