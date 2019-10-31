@@ -7,16 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- CSS style -->
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <title>Document</title>
+    <title>CV of Mathilda Edström</title>
 </head>
 
 <body>
     <!-- Header -->
     <header id="main-header">
         <!-- Header name -->
-        <p id="name">Mathilda Edström</p>
+        <p id="name">Mathilda <span>Edström</span></p>
         <!-- Menu toggle -->
         <input type="checkbox" id="check">
         <label for="check" class="menu-toggle">
@@ -36,12 +37,15 @@
     <div class="front">
         <!-- Div with presentation -->
         <div class="display">
+            <!-- Text div -->
             <div class="display-text">
                 <p id="cv">CV of</p>
                 <h3>Mathilda</h3>
                 <h2>Edström</h2>
             </div>
+            <!-- Image -->
             <img src="images/profile.png" alt="">
+            <!-- Title div -->
             <div class='title'>
                 <p>Webdeveloper student</p>
             </div>
@@ -51,14 +55,19 @@
     <div class="wrapper">
         <!-- Sidebar -->
         <div class="sidebar">
+            <!-- Profile image -->
             <div class="profile-img">
                 <img src="images/profile.png" alt="">
             </div>
+            <!-- Profile name -->
             <p id="profile-name">Mathilda <span>Edström</span></p>
+            <!-- Profile description -->
             <p id="profile-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis possimus iste
                 asperiores, modi laborum voluptate eum. Laborum atque numquam id odio animi enim consectetur eveniet
                 amet? Officiis eveniet aliquid qui.</p>
+            <!-- Profile email -->
             <p id="profile-email"></p>
+            <!-- Profile social medias -->
             <ul id="profile-socials">
             </ul>
         </div>
@@ -67,12 +76,26 @@
             <!-- Portfolio section -->
             <section id="portfolio" class="sections">
                 <h2>Portfolio</h2>
+                <div class="main-carousel" data-flickity='{ "wrapAround": true }'>
+                    <!--<div class="carousel-cell">
+                        <img src="images/admin-rest.png" alt="">
+                        <div>
+                            <h3>titel</h3>
+                            <a href="" alt="">Länk</a>
+                            <p>Beskrivning</p>
+                            <em>Publicerad</em>
+                        </div>
+                    </div>-->
+                </div>
             </section>
             <!-- Timeline section -->
             <section id="timeline" class="sections">
+                <h2>Tidslinje</h2>
                 <!-- Output timeline in js -->
                 <div id="timeline-div">
+                    <!-- Added birthyear manually -->
                     <div class="container left">
+                        <!-- Content -->
                         <div class="content">
                             <h3><i class="fas fa-birthday-cake"></i> 1995</h3>
                             <em>Västervik</em>
@@ -88,8 +111,13 @@
             <em>Webbutveckling III, HT19</em></p>
     </footer>
 
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- JS script tag -->
     <script src="js/main.js"></script>
+    <!-- Flickity cdn -->
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
 </body>
 
 </html>

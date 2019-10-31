@@ -6,35 +6,37 @@ const urlPortfolio = 'http://studenter.miun.se/~maed1801/dt173g/projekt-REST/cv.
 const urlStudies = 'http://studenter.miun.se/~maed1801/dt173g/projekt-REST/cv.php/api/studies';
 const urlWork = 'http://studenter.miun.se/~maed1801/dt173g/projekt-REST/cv.php/api/work';
 
-let urls = [urlUser, urlPortfolio, urlStudies, urlWork];
+// Fetch function User
+fetch(urlUser)
+    .then(resp => resp.json())
+    .then(json => {
+        // Call function with parameter json response
+        getUser(json);
+    });
 
-// Fetch function
-/*function fetchUrl(url) {
-    fetch(url)
-        .then(resp => resp.json())
-        .then(json => {
-            if (url.includes('users')) getUser(json);
-            if (url.includes('portfolio')) getPortfolio(json);
-            if (url.includes('studies')) getStudies(json);
-            if (url.includes('work')) getWork(json);
-        });
-}*/
+// Fetch function Portfolio
+fetch(urlPortfolio)
+    .then(resp => resp.json())
+    .then(json => {
+        // Call function with parameter json response
+        getPortfolio(json);
+    });
 
+// Fetch function Studies
+fetch(urlStudies)
+    .then(resp => resp.json())
+    .then(json => {
+        // Save studies json to global variabel
+        window.studiesJson = json;
+    });
 
-
-
-async function fetchAll() {
-    let results = await Promise.all(urls.map((urls) => fetch(url).then((resp) => resp.json())));
-    console.log(JSON.stringify(results, null, 2));
-}
-
-console.log(fetchAll());
-
-// Call fetch function
-/*fetchUrl(urlUser);
-fetchUrl(urlPortfolio);
-fetchUrl(urlStudies);
-fetchUrl(urlWork);*/
+// Fetch function Work
+fetch(urlWork)
+    .then(resp => resp.json())
+    .then(json => {
+        // Call function with parameter json response
+        getWS(json);
+    });
 
 // Variables for sections
 const portfolio = document.getElementById('portfolio');
@@ -71,56 +73,81 @@ function getUser(json) {
     // Profile email
     profileEmail.innerHTML = `<a href="mailto:${email}">${email}</a>`;
     // Profile socials
+    // Output socials if the value is not equal to null
     if (facebook != 'null' && facebook != null) profileSocials.innerHTML += `<li id="fb"><a href="${facebook}">${firstname} ${lastname}</a></li>`;
     if (instagram != 'null' && instagram != null) profileSocials.innerHTML += `<li id="ig"><a href="instagram.com/${instagram}">${instagram}</a></li>`;
     if (linkedin != 'null' && linkedin != null) {
+        // For linkedin href
+        // To lower case
         let linkedToLower = linkedin.toLowerCase();
+        // Replace å/ä with a
         let linkedToReplaceOne = linkedToLower.replace(/å|ä/g, 'a');
+        // Replace ö with o
         let linkedToReplaceTwo = linkedToReplaceOne.replace(/ö/g, 'o');
+        // Replace space with -
         let linkedUrl = linkedToReplaceTwo.replace(/ /g, '-');
+        // Output linkedin
         profileSocials.innerHTML += `<li id="ldi"><a href="https://sg.linkedin.com/in/${linkedUrl}">${linkedin}</a></li>`;
     }
 }
 
-// Output portfolio
+// Variable for carousel
+const carouselDiv = document.getElementById('main-carousel');
+// Function for output portfolio
 function getPortfolio(json) {
+    // init Flickity with jQuery
+    var $carousel = $('.main-carousel').flickity();
+    // get instance
+    var flkty = $carousel.data('flickity');
+    // access selectedIndex
+    var selected = flkty.selectedIndex;
+    // Adding images to each project
+    json[0]['image'] = 'kunggosta.png';
+    json[1]['image'] = 'julfeeling.png';
+    json[2]['image'] = 'fardtjanst.png';
+    json[3]['image'] = 'bollsparken.png';
+    json[4]['image'] = 'admin-rest.png';
+    // Separate each object
     for (const i in json) {
+        // If object is it own
         if (json.hasOwnProperty(i)) {
+            // Save json[i] in variable for easy handle
             const output = json[i];
+            // If object foreign key (UserID) is the same as UserID from global variable, output div
             if (output.UserID == window.UserID) {
-                portfolio.innerHTML += `
-                <div id="item-${output.Pid}" class="items">
-                <h3>${output.Ptitle}</h3>
-                <a href="${output.Purl}" target="_blank">${output.Purl}</a>
-                <p><span>Beskrivning:</span> ${output.Pdesc}</p>
-                <p><span>Skapad:</span> ${output.Pcreated}</p></div>
-                `;
+                // insert cell
+                var $cellElems = $('<div class="carousel-cell"><img src="images/' + output.image + '" alt=""><div><h3>' + output.Ptitle + '</h3><a href="' + output.Purl + '" alt="">' + output.Purl + '</a><p>' + output.Pdesc + '</p><em>' + output.Pcreated + '</em></div></div>');
+                $carousel.flickity('insert', $cellElems, selected);
             }
         }
     }
 }
 
-// Output studies
-function getStudies(json) {
-    window.testar = json;
-}
-
-// Output work
-function getWork(json) {
-    let arrTest = [];
-    for (const i in window.testar) {
-        arrTest.push(window.testar[i]);
+// Function for handling work and studies
+function getWS(json) {
+    // Empty array
+    let arrWS = [];
+    // Separate object in studies array, from global variable
+    for (const i in window.studiesJson) {
+        // Push objects to array
+        arrWS.push(window.studiesJson[i]);
     }
+    // Separate object in work array, parameter in this function
     for (const i in json) {
-        arrTest.push(json[i]);
+        // Push objects to array
+        arrWS.push(json[i]);
     }
 
-    for (const i in arrTest) {
-        let newValW = arrTest[i]['WstartDate'];
-        let newValS = arrTest[i]['SstartDate'];
-        arrTest[i]['compare'] = newValW || newValS;
+    // Separate objects in new array
+    for (const i in arrWS) {
+        // Set values to variables
+        let newValW = arrWS[i]['WstartDate'];
+        let newValS = arrWS[i]['SstartDate'];
+        // Add new key value with values from either work or studies
+        arrWS[i]['compare'] = newValW || newValS;
     }
 
+    // Function for comparing values
     function compare(a, b) {
         if (a.compare < b.compare) {
             return -1;
@@ -131,22 +158,27 @@ function getWork(json) {
         return 0;
     }
 
-    arrTest.sort(compare);
+    // Sort and compare array
+    arrWS.sort(compare);
 
-    for (const i in arrTest) {
-        if (arrTest[i].UserID == window.UserID) {
-            // Work
-            let Wname = arrTest[i].Wname;
-            let Wtitle = arrTest[i].Wtitle;
-            let Wdesc = arrTest[i].Wdesc;
-            let Wstart = arrTest[i].WstartDate;
-            let Wend = arrTest[i].WendDate;
-            // Studies
-            let Sname = arrTest[i].Sname;
-            let Scity = arrTest[i].Scity;
-            let Sstart = arrTest[i].SstartDate;
-            let Send = arrTest[i].SendDate;
-            if (arrTest[i].Wid) {
+    // Separate objects in array
+    for (const i in arrWS) {
+        // Output if arrays foreign key (UserID) is same as UserID saved in global variable
+        if (arrWS[i].UserID == window.UserID) {
+            // Work variables
+            let Wname = arrWS[i].Wname;
+            let Wtitle = arrWS[i].Wtitle;
+            let Wdesc = arrWS[i].Wdesc;
+            let Wstart = arrWS[i].WstartDate;
+            let Wend = arrWS[i].WendDate;
+            // Studies variables
+            let Sname = arrWS[i].Sname;
+            let Scity = arrWS[i].Scity;
+            let Sstart = arrWS[i].SstartDate;
+            let Send = arrWS[i].SendDate;
+            // Output this html if object are from Work
+            if (arrWS[i].Wid) {
+                // Left container
                 timeline.innerHTML += `
             <div class="container left">
                 <div class="content">
@@ -158,7 +190,9 @@ function getWork(json) {
                 </div>
             </div>
             `;
-            } else if (arrTest[i].Sid) {
+                // Output this html if object are from Studies
+            } else if (arrWS[i].Sid) {
+                // Right container
                 timeline.innerHTML += `
                 <div class="container right">
                     <div class="content">
@@ -170,7 +204,6 @@ function getWork(json) {
                 </div>
             `;
             }
-            console.log(arrTest[i]);
         }
     }
 }

@@ -6,8 +6,6 @@ const concatCSS = require('gulp-concat-css');
 const browserSync = require('browser-sync').create();
 const sass = require('gulp-sass');
 const babel = require('gulp-babel');
-require("babel-core/register");
-require("babel-polyfill");   
 
 // Files
 const files = {
@@ -62,7 +60,8 @@ function copyJS() {
     return src(files.jsPath)
         // Convert with Babel
         .pipe(babel({
-            presets: ['@babel/env']
+            presets: ['@babel/env'],
+            plugins: ['@babel/transform-runtime']
         }))
         // Concat JS files to one
         .pipe(concat('main.js'))

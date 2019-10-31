@@ -36,6 +36,10 @@ h6 {
 // Links
 a {
   text-decoration: none;
+  color: $mustard;
+  &:hover {
+    color: darken($mustard, 10%);
+  }
 }
 
 // Header
@@ -46,27 +50,33 @@ a {
   display: flex;
   flex-flow: wrap;
   align-items: center;
+  // Class for header background change
   &.change {
     background: $baseGrey;
   }
+  // Name style in header
   #name {
     padding: 5px 10px;
     font-weight: bold;
     text-transform: uppercase;
     color: $mintGreen;
+    // Lastname
     span {
       font-weight: normal;
     }
   }
 
   // Menu
+  // Hide checkbox
   #check {
     display: none;
   }
+  // Create menu button style
   .menu-toggle {
     padding: 5px;
     cursor: pointer;
     margin-left: auto;
+    // Rows
     span {
       width: 45px;
       background: $mustard;
@@ -74,6 +84,7 @@ a {
       padding: 3px;
       margin: 2px;
       display: block;
+      // Style middle line, "menu"
       &:nth-child(2) {
         background: none;
         padding: 0;
@@ -84,11 +95,11 @@ a {
       }
     }
   }
-
+  // Display list when box is checked
   #check:checked ~ .menu-list {
     display: block;
   }
-
+  // Style menu list
   .menu-list {
     display: none;
     min-width: 100%;
@@ -119,6 +130,7 @@ a {
 }
 
 // Front
+// Front page with width 100 vh
 .front {
   height: 100vh;
   position: relative;
@@ -128,6 +140,7 @@ a {
   align-items: center;
   background-color: $darkGreen;
   background-image: linear-gradient(to bottom, transparent 50%, $mintGreen 50%), url(/images/pattern.png);
+  // Triangle for effect
   &::after {
     content: "";
     position: absolute;
@@ -137,33 +150,36 @@ a {
     clip-path: polygon(0 0, 100% 100%, 100% 0);
     background: $mintGreen;
   }
+  // Div including output on front page
   .display {
     width: 80%;
     height: 50%;
     display: flex;
-    //flex-flow: column;
-    //justify-content: center;
+    align-items: center;
     text-transform: uppercase;
     font-size: 4em;
-
     position: relative;
     flex-flow: row wrap;
+    // Profile img on front page
     img {
       height: 100%;
       margin-left: auto;
     }
-
+    // Cv of
     p {
       color: $mustard;
       font-size: 1em;
     }
+    // Lastname
     h2 {
       color: $darkGreen;
     }
+    // Firstname
     h3 {
       color: $mintGreen;
       line-height: 1em;
     }
+    // Student title
     .title {
       background: $mustard;
       height: 40px;
@@ -171,6 +187,7 @@ a {
       flex-flow: column;
       justify-content: center;
       width: 100%;
+      align-self: flex-end;
       p {
         color: $mintGreen;
         font-size: 0.3em;
@@ -180,11 +197,69 @@ a {
   }
 }
 
+/* Portfolio carousel with Flickity */
+.main-carousel {
+  background: $darkGreen;
+  margin: 20px;
+}
+// Carousel cell, each project
+.carousel-cell {
+  width: 80%;
+  margin-right: 10px;
+  background: $darkGreen;
+  color: lighten($darkGreen, 10%);
+  border-radius: 5px;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  // The one that's selected
+  &.is-selected {
+    background: $darkGreen;
+    color: $mintGreen;
+  }
+  // Image in cell
+  img {
+    width: 50%;
+    height: auto;
+  }
+  // Div with text in cell, display flex for centering
+  div {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    // Add padding to eerything inside div
+    > * {
+      padding: 10px;
+    }
+  }
+}
+// Style for dots
+.flickity-page-dots {
+  bottom: 0px;
+}
+// White circles
+.flickity-page-dots .dot {
+  width: 12px;
+  height: 12px;
+  opacity: 1;
+  background: transparent;
+  border: 2px solid white;
+}
+// Selected dot
+.flickity-page-dots .dot.is-selected {
+  background: white;
+}
+/**/
+
 // Wrapper
 .wrapper {
   flex: 1;
   display: flex;
   flex-flow: row wrap;
+  // Style for sidebar
   .sidebar {
     background: $darkGreen;
     padding: 60px 10px;
@@ -192,6 +267,7 @@ a {
     display: flex;
     flex-flow: column;
     align-items: center;
+    // Profile img, circle form
     .profile-img {
       display: flex;
       width: 15vw;
@@ -200,37 +276,43 @@ a {
       border: 5px solid $mustard;
       overflow: hidden;
       background: #fff;
+      // Fit img inside circle
       img {
         width: 100%;
         height: auto;
       }
     }
+    // Profile name
     #profile-name {
       margin: 20px 10px;
       font-weight: bold;
       font-size: 3em;
       text-align: center;
       color: $mintGreen;
+      // Lastname
       span {
         font-weight: normal;
       }
     }
+    // Profile description
     #profile-desc {
       padding: 10px;
       text-align: center;
       color: lighten($darkGreen, 20%);
+      max-width: 550px;
     }
-    #profile-email a {
-      color: $mustard;
-    }
+    // Profile social media
+    // Ul
     #profile-socials {
       width: 100%;
       margin: 10px;
       padding: 15px 20px;
       list-style: none;
       text-align: center;
+      // Li
       li {
         display: inline-block;
+        // Add style to icons before socials
         &::before {
           font-size: 1.5em;
           font-family: "Font Awesome 5 Brands";
@@ -243,16 +325,19 @@ a {
           font-size: 0.8em;
         }
       }
+      // Unicode for facebook
       #fb {
         &::before {
           content: "\f082";
         }
       }
+      // Unicode for instagram
       #ig {
         &::before {
           content: "\f16d";
         }
       }
+      // Unicode for linkedin
       #ldi {
         &::before {
           content: "\f08c";
@@ -260,31 +345,54 @@ a {
       }
     }
   }
+
+  // Main area
   main {
     width: 80%;
+    // Style for all sections
     .sections {
-      padding: 20px;
+      padding: 40px;
       border-bottom: 5px solid $mintGreen;
+      text-align: center;
+      // Add margin-top to first section child because triangle covers content
       &:first-child {
         margin-top: 40px;
         background: $darkGreen;
       }
-      .items {
+      // Headers
+      h2 {
+        color: $mintGreen;
+        text-align: center;
         padding: 20px;
-        p {
-          span {
-            color: $mintGreen;
-          }
+        position: relative;
+        display: inline-block;
+        margin-bottom: 20px;
+        letter-spacing: 0.2em;
+        // Add line under headers in sections
+        &::after {
+          content: "";
+          height: 3px;
+          width: 60%;
+          background: $mintGreen;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin-left: auto;
+          margin-right: auto;
         }
       }
     }
   }
 }
 
+// Style for timeline
+// Wrapper around all
 #timeline-div {
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
+  // The line
   &::after {
     content: "";
     position: absolute;
@@ -295,10 +403,12 @@ a {
     left: 50%;
     margin-left: -3px;
   }
+  // Containers for content
   .container {
     padding: 10px 40px;
     position: relative;
     width: 50%;
+    // Circles on timeline
     &::after {
       content: "";
       position: absolute;
@@ -311,22 +421,27 @@ a {
       border-radius: 50%;
       z-index: 1;
     }
+    // Actual content
     .content {
       padding: 20px 30px;
       background: white;
       position: relative;
       border-radius: 5px;
+      text-align: left;
       > * {
         padding: 3px;
       }
+      // Icons of birth, school, work
       i {
         color: $mintGreen;
         margin-right: 5px;
       }
     }
   }
+  // Left side of containers
   .left {
     left: 0;
+    // Add arrows
     &::before {
       content: "";
       height: 0;
@@ -335,19 +450,22 @@ a {
       right: 30px;
       width: 0;
       z-index: 1;
-      border: medium solid #00f;
+      border: medium solid white;
       border-width: 10px 0 10px 10px;
       border-color: transparent transparent transparent white;
     }
   }
+  // Right side of containers
   .right {
     left: 50%;
+    // Extend .left::before but change arrow direction
     &::before {
       @extend .left::before;
       left: 30px;
       border-width: 10px 10px 10px 0;
       border-color: transparent white transparent transparent;
     }
+    // Fix the circles
     &::after {
       left: -16px;
     }
@@ -363,13 +481,93 @@ footer {
 }
 
 // Media queries
-@media all and (max-width: 600px) {
+@media all and (max-width: 1035px) {
+  .front {
+    .display {
+      // Have the text go over image
+      .display-text {
+        z-index: 9;
+      }
+      // Set profile image on front page to absolute
+      img {
+        position: absolute;
+        right: 0;
+        bottom: 40px;
+        z-index: 1;
+      }
+    }
+  }
+
   .wrapper {
+    // Set sidebar to width 100%
     .sidebar {
       width: 100%;
+      padding: 80px 10px 20px;
+      // Make profile img bigger
+      .profile-img {
+        width: 30vw;
+        height: 30vw;
+      }
     }
+    // Set main to width 100%
     main {
       width: 100%;
+    }
+  }
+}
+@media all and (max-width: 800px) {
+  .front {
+    // Change size of text on front page
+    .display {
+      h2 {
+        font-size: 15vw;
+      }
+      h3 {
+        font-size: 12vw;
+      }
+      p {
+        font-size: 10vw;
+      }
+      // Hide image
+      img {
+        display: none;
+      }
+    }
+  }
+  // Hide image in portfolio carousel
+  .carousel-cell {
+    img {
+      display: none;
+    }
+  }
+}
+@media all and (max-width: 700px) {
+  #timeline-div {
+    // Move line to left side
+    &::after {
+      left: 10%;
+    }
+    // Increase width of containers
+    .container {
+      width: 90%;
+      // Move circles
+      &::after {
+        left: -17px;
+      }
+    }
+    // Change position and place all on right side
+    .left {
+      left: 10%;
+      // Change direction of arrows
+      &::before {
+        left: 30px;
+        border-width: 10px 10px 10px 0;
+        border-color: transparent white transparent transparent;
+      }
+    }
+    // Change position and place all on right side
+    .right {
+      left: 10%;
     }
   }
 }
