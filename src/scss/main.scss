@@ -542,22 +542,41 @@ footer {
   }
 }
 @media all and (max-width: 700px) {
+  // Change font-size
+  p,
+  em,
+  a {
+    font-size: 0.8em;
+  }
+  h2 {
+    font-size: 1.2em;
+  }
+  h3 {
+    font-size: 1em;
+  }
+  h4 {
+    font-size: 0.9em;
+  }
   #timeline-div {
     // Move line to left side
     &::after {
-      left: 10%;
+      left: 5%;
     }
     // Increase width of containers
     .container {
       width: 90%;
+      padding: 10px 0 10px 40px;
       // Move circles
       &::after {
         left: -17px;
       }
+      .content {
+        width: 90%;
+      }
     }
     // Change position and place all on right side
     .left {
-      left: 10%;
+      left: 5%;
       // Change direction of arrows
       &::before {
         left: 30px;
@@ -567,7 +586,42 @@ footer {
     }
     // Change position and place all on right side
     .right {
-      left: 10%;
+      left: 5%;
     }
+  }
+}
+
+.wrapper {
+  main {
+    .sections {
+      padding: 10px;
+    }
+  }
+}
+
+.carousel-cell {
+  div {
+    padding: 0;
+    width: 100%;
+  }
+}
+
+@media all and (max-height: 820px) {
+  .front {
+    .display {
+      height: 30%;
+      .title {
+        p {
+          font-size: 0.2em;
+        }
+      }
+    }
+  }
+}
+
+// If IOS, hide triangle after front because clip-path is not supported
+@supports (-webkit-overflow-scrolling: touch) {
+  .front::after {
+    display: none;
   }
 }
